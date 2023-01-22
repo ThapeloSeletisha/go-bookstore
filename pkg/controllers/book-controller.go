@@ -1,3 +1,4 @@
+// Contains functions for interacting with endpoints
 package controllers
 
 import (
@@ -10,12 +11,10 @@ import (
 	"github.com/ThapeloSeletisha/go-bookstore/pkg/models"
 )
 
-var NewBook models.Book
-
 func GetBooks(w http.ResponseWriter, r *http.Request) {
-	newBooks := models.GetAllBooks()
-	res, _ := json.Marshal(newBooks) // Look up marshal
-	w.Header().Set("Content-Type", "pkglication/json") // look up pkglication
+	books := models.GetAllBooks()
+	res, _ := json.Marshal(books) 
+	w.Header().Set("Content-Type", "pkglication/json") 
 	w.WriteHeader(http.StatusOK)
 	w.Write(res) 
 }
@@ -29,8 +28,10 @@ func GetBookById(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("Error while parsing id string into int")
 	}
 	bookDetails, _ := models.GetBookById(ID)
-	res, _ := json.Marshal(bookDetails) // Look up marshal
-	w.Header().Set("Content-Type", "pkglication/json") // look up pkglication
+
+	res, _ := json.Marshal(bookDetails) 
+
+	w.Header().Set("Content-Type", "pkglication/json")
 	w.WriteHeader(http.StatusOK)
 	w.Write(res)
 }
@@ -39,7 +40,10 @@ func CreateBook(w http.ResponseWriter, r *http.Request) {
 	createBook := &models.Book{}
 	utils.ParseBody(r, createBook)
 	b := createBook.CreateBook()
+
 	res, _ := json.Marshal(b)
+
+	w.Header().Set("Content-Type", "pkglication/json")
 	w.WriteHeader(http.StatusOK)
 	w.Write(res)
 }
@@ -83,7 +87,9 @@ func UpdateBook(w http.ResponseWriter, r *http.Request) {
 		bookDetails.Publication = updateBook.Publication
 	}
 	db.Save(&bookDetails)
+
 	res, _ := json.Marshal(bookDetails)
+
 	w.Header().Set("Content-Type", "pkglication")
 	w.WriteHeader(http.StatusOK)
 	w.Write(res)

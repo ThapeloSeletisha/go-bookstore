@@ -5,10 +5,7 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
-// Look up what this block does
-var (
-	db * gorm.DB
-)
+var db *gorm.DB
 
 func Connect() {
 	// the username, password and database name used for gorm.Open() is dependent on the local environment

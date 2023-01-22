@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 	"github.com/gorilla/mux"
-	_ "github.com/jinzhu/gorm/dialects/mysql" // look up what the underscore is about
+	_ "github.com/jinzhu/gorm/dialects/mysql" // undercore means that the import is only needed for its "side effect"
 	"github.com/ThapeloSeletisha/go-bookstore/pkg/routes"
 )
 
